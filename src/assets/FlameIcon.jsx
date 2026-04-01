@@ -1,0 +1,13 @@
+const FlameIcon = () => {
+  return (
+    <svg 
+      viewBox="0 0 24 24" 
+      fill="white" 
+      className="w-full h-full"
+    >
+      <path d="M12 2C12 2 7 7 7 11a5 5 0 0010 0c0-4-5-9-5-9zm0 18a3 3 0 01-3-3c0-2 3-5 3-5s3 3 3 5a3 3 0 01-3 3z"/>
+    </svg>
+  );
+};
+
+export default FlameIcon;
