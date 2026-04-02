@@ -1,8 +1,10 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
+    const navigate = useNavigate();
     return (
         <div className='w-full flex flex-col justify-center items-center bg-amber-50 px-4'>
 
@@ -46,7 +48,7 @@ const Header = () => {
                            bg-gradient-to-br from-orange-500 to-red-500 
                            shadow-lg shadow-orange-500/40 
                            hover:scale-105 hover:shadow-xl 
-                           transition duration-300'>
+                           transition duration-300' onClick={()=>{navigate("/signUp")}}>
                     Get Started →
                 </button>
 

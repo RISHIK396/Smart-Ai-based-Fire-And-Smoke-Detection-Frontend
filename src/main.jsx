@@ -1,8 +1,14 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Signup from './SignUp/Signup.jsx'
 
 createRoot(document.getElementById('root')).render(
-    <App />,
+    <BrowserRouter>
+    <Routes>
+        <Route path="/" element={<App/>}/>
+        <Route path="/signUp" element={<Signup/>} />
+    </Routes>
+    </BrowserRouter>
 )
