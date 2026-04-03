@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Signup = () => {
   return (
-    <div className='flex flex-col items-center justify-center w-full min-h-screen bg-amber-50'>
+    <div className='flex flex-col items-center justify-center w-full min-h-screen bg-[#fff4f0]'>
 
       <div className='bg-white w-[90%] max-w-md h-[92vh] flex flex-col justify-evenly items-center rounded-3xl px-6 shadow-2xl border'>
 
@@ -34,11 +34,11 @@ const Signup = () => {
 
           <label className='text-sm font-medium'>Password</label>
           <input className='px-4 w-full bg-gray-200 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400'
-            type='password' placeholder='.........' name='password' />
+            type='password' placeholder='••••••••' name='password' />
 
           <label className='text-sm font-medium'>Confirm Password</label>
           <input className='px-4 w-full bg-gray-200 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400'
-            type='password' placeholder='........' name='confirmPassword' />
+            type='password' placeholder='••••••••' name='confirmPassword' />
 
           {/* Info box */}
           <div className='flex items-center gap-2 bg-blue-100 p-3 rounded-lg'>
@@ -59,7 +59,7 @@ const Signup = () => {
 
         <p className='text-sm'>
           Already have an account?{" "}
-          <Link className='text-orange-500 font-medium' to="/">Sign In</Link>
+          <Link className='text-orange-500 font-medium' to="/login">Sign In</Link>
         </p>
 
       </div>

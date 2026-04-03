@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const Header = () => {
     const navigate = useNavigate();
     return (
-        <div className='w-full flex flex-col justify-center items-center bg-amber-50 px-4'>
+        <div className='w-full flex flex-col justify-center items-center bg-[#fff4f0] px-4'>
 
             {/* 🔥 Flame */}
             <div className='w-full flex justify-center items-center'>
@@ -56,7 +56,7 @@ const Header = () => {
                            rounded-[10px] border border-gray-400 
                            text-gray-800 bg-white 
                            hover:bg-gray-100 hover:scale-105 
-                           transition duration-300'>
+                           transition duration-300' onClick={()=>{navigate("/login")}}>
                     Sign In
                 </button>
 

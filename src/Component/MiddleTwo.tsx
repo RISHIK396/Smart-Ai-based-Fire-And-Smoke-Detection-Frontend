@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const MiddleTwo = () => {
+    const navigate = useNavigate();
     return (
         <div className='w-full max-w-6xl mx-auto 
                 rounded-2xl 
@@ -17,7 +19,7 @@ const MiddleTwo = () => {
             </p>
 
             <button className='mt-6 px-6 py-2 rounded-full bg-white text-orange-600 font-medium 
-                       hover:bg-gray-300 hover:scale-104 transition duration-300'>
+                       hover:bg-gray-300 hover:scale-104 transition duration-300' onClick={()=>{navigate('/singUp')}}>
                 Get Started
             </button>
 

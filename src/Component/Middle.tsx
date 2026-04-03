@@ -7,7 +7,7 @@ import { faFire } from '@fortawesome/free-solid-svg-icons/faFire'
 
 const Middle = () => {
   return (
-    <div className='w-full bg-amber-50 px-4 py-16 flex flex-col items-center'>
+    <div className='w-full bg-[#fff4f0] px-4 py-16 flex flex-col items-center'>
 
       {/* 🔥 Heading */}
       <h2 className='text-2xl sm:text-3xl md:text-4xl font-bold text-black text-center'>
