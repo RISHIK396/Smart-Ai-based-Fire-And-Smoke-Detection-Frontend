@@ -4,6 +4,7 @@ import App from './App.jsx'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Signup from './SignUp/Signup.jsx'
 import Login from './SignUp/Login.jsx'
+import Dashboard from './Dashboard/Dashboard.jsx'
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
@@ -11,6 +12,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App/>}/>
         <Route path="/signUp" element={<Signup/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/dashboard" element={<Dashboard/>}/>
     </Routes>
     </BrowserRouter>
 )

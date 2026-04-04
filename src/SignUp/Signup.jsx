@@ -1,9 +1,10 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck, faFireFlameCurved } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Signup = () => {
+  const navigate = useNavigate();
   return (
     <div className='flex flex-col items-center justify-center w-full min-h-screen bg-[#fff4f0]'>
 
@@ -53,7 +54,7 @@ const Signup = () => {
         <button className='w-full py-2 text-base rounded-lg text-white 
                            bg-gradient-to-br from-orange-500 to-red-500 
                            shadow-lg shadow-orange-500/40 
-                           hover:scale-105 hover:shadow-xl transition duration-300'>
+                           hover:scale-105 hover:shadow-xl transition duration-300' onClick={()=>{navigate('/dashboard')}}>
           Create Account
         </button>
 
