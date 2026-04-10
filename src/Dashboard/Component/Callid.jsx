@@ -1,11 +1,11 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhone, faBell  } from '@fortawesome/free-solid-svg-icons'
+import { faPhone, faBell ,faShield,faHospital,faTriangleExclamation  } from '@fortawesome/free-solid-svg-icons'
 
 const Callid = () => {
     return (
 
-<div className='w-full bg-white rounded-xl border border-gray-200 shadow-md p-6 flex flex-col gap-6'>
+<div className='w-full mb-20 bg-white rounded-xl border border-gray-200 shadow-md p-6 flex flex-col gap-6'>
 
     {/* 🔝 Header */}
     <div className='flex items-center gap-3'>
@@ -63,30 +63,30 @@ const Callid = () => {
 
             <div className='flex items-center gap-3'>
 
-                <div className='w-10 h-10 rounded-full bg-red-100 flex items-center justify-center'>
+                <div className='w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center'>
                     <FontAwesomeIcon 
-                        icon={faBell } 
-                        className="text-red-500"
-                    />
+                        icon={faShield} 
+                        style={{ color: "rgb(43, 54, 255)" }} 
+                        />
                 </div>
 
                 <div>
                     <h3 className='text-black font-medium'>
-                        Fire Department
+                        Police
                     </h3>
                     <p className='text-gray-400 text-sm'>
-                        Fire emergency response
+                        Law Enforcement
                     </p>
                 </div>
             </div>
 
             <button className='flex items-center justify-center gap-2 
-                               bg-red-500 text-white py-2 rounded-full 
-                               hover:bg-red-600 transition duration-300'>
+                               bg-blue-500 text-white py-2 rounded-full 
+                               hover:bg-blue-600 transition duration-300'>
 
                 <FontAwesomeIcon icon={faPhone} />
 
-                Call 101
+                Call 100
             </button>
 
         </div>
@@ -94,11 +94,8 @@ const Callid = () => {
 
             <div className='flex items-center gap-3'>
 
-                <div className='w-10 h-10 rounded-full bg-red-100 flex items-center justify-center'>
-                    <FontAwesomeIcon 
-                        icon={faBell } 
-                        className="text-red-500"
-                    />
+                <div className='w-10 h-10 rounded-full bg-green-100 flex items-center justify-center'>
+                    <FontAwesomeIcon icon={faHospital} style={{color: "rgb(19, 172, 63)",}} />
                 </div>
 
                 <div>
@@ -112,12 +109,12 @@ const Callid = () => {
             </div>
 
             <button className='flex items-center justify-center gap-2 
-                               bg-red-500 text-white py-2 rounded-full 
-                               hover:bg-red-600 transition duration-300'>
+                               bg-green-500 text-white py-2 rounded-full 
+                               hover:bg-green-600 transition duration-300'>
 
                 <FontAwesomeIcon icon={faPhone} />
 
-                Call 101
+                Call 102
             </button>
 
         </div>
@@ -125,11 +122,8 @@ const Callid = () => {
 
             <div className='flex items-center gap-3'>
 
-                <div className='w-10 h-10 rounded-full bg-red-100 flex items-center justify-center'>
-                    <FontAwesomeIcon 
-                        icon={faBell } 
-                        className="text-red-500"
-                    />
+                <div className='w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center'>
+                    <FontAwesomeIcon icon={faTriangleExclamation} style={{color: "rgb(231, 140, 15)",}} />
                 </div>
 
                 <div>
@@ -143,12 +137,12 @@ const Callid = () => {
             </div>
 
             <button className='flex items-center justify-center gap-2 
-                               bg-red-500 text-white py-2 rounded-full 
-                               hover:bg-red-600 transition duration-300'>
+                               bg-orange-500 text-white py-2 rounded-full 
+                               hover:bg-orange-600 transition duration-300'>
 
                 <FontAwesomeIcon icon={faPhone} />
 
-                Call 101
+                Call 112
             </button>
 
         </div>

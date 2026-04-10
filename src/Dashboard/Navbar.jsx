@@ -9,6 +9,8 @@ import {
 import Cards from './Component/Cards'
 import RegisterDevice from './Component/RegisterDevice'
 import Callid from './Component/Callid'
+import Devices from './DevicesPage/Devices'
+import Emergency from './EmergencyPage/Emergency'
 
 const Navbar = () => {
     const [activeTab, setActiveTab] = useState("overview")
@@ -90,8 +92,11 @@ const Navbar = () => {
                     <RegisterDevice/>
                     <Callid/>
                     </div>}
-                {activeTab === "devices" && <div>📱 Devices Content</div>}
-                {activeTab === "emergency" && <div>🚨 Emergency Content</div>}
+                {activeTab === "devices" && <div>
+                    <Devices/></div>}
+                {activeTab === "emergency" && <div>
+                    <Emergency/>
+                    </div>}
                 {activeTab === "detections" && <div>🔥 Detections Content</div>}
 
             </div>
