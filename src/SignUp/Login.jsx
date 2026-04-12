@@ -1,11 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      email,
+      password
+    }
+    try {
+      const res = await axios.post("http://localhost:3000/auth/login",
+        payload,
+        {
+          withCredentials: true
+        }
+      );
+      if (res.status == 201) {
+        console.log(res.data);
+        navigate('/dashboard', {
+          state: {
+            userId: res.data.data.userId,
+            name: res.data.data.name,
+            email: res.data.data.email
+          }
+        });
+        alert("sucessfull Login");
+
+        setEmail("");
+        setPassword("");
+      }
+    }
+    catch (error) {
+      console.log(error.message);
+      alert("Signup failed ❌");
+
+    }
+  }
   return (
-     <div className='flex flex-col items-center justify-center w-full min-h-screen bg-[#fff4f0]'>
+    <div className='flex flex-col items-center justify-center w-full min-h-screen bg-[#fff4f0]'>
 
       <div className='bg-white w-[90%] max-w-md h-[65vh] flex flex-col justify-evenly items-center rounded-3xl px-6 shadow-2xl border'>
 
@@ -26,11 +64,11 @@ const Login = () => {
 
           <label className='text-sm font-medium'>Email</label>
           <input className='px-4 w-full bg-gray-200 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400'
-            type='email' placeholder='you@example.com' name='email' />
+            type='email' placeholder='you@example.com' name='email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
 
           <label className='text-sm font-medium'>Password</label>
           <input className='px-4 w-full bg-gray-200 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400'
-            type='password' placeholder='••••••••' name='password'  />
+            type='password' placeholder='••••••••' name='password' value={password} onChange={(e) => { setPassword(e.target.value) }} />
 
         </div>
 
@@ -38,7 +76,7 @@ const Login = () => {
         <button className='w-full py-2 text-base rounded-lg text-white 
                            bg-gradient-to-br from-orange-500 to-red-500 
                            shadow-lg shadow-orange-500/40 
-                           hover:scale-105 hover:shadow-xl transition duration-300'>
+                           hover:scale-105 hover:shadow-xl transition duration-300' onClick={(e) => { handleFormSubmit(e) }}>
           Sign In
         </button>
 
