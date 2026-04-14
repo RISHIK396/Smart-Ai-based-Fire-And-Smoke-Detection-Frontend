@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireFlameCurved, faPlus } from '@fortawesome/free-solid-svg-icons'
 import RegisterModal from '../DevicesPage/RegisterModal';
 
-const RegisterDevice = () => {
+const RegisterDevice = ({setActiveTab}) => {
     const [modal, setModal] = useState(false);
     return (
 
@@ -45,12 +45,12 @@ const RegisterDevice = () => {
                     Get started by registering your first device
                 </p>
                 {modal && <RegisterModal setModal={setModal}/>}
-                <button className='mt-6 px-6 py-2 rounded-md 
+                <button id='register-btn' className='mt-6 px-6 py-2 rounded-md 
                            bg-gradient-to-br from-orange-500 via-red-500 to-yellow-500 
                            text-white text-sm font-medium 
                            hover:scale-105 transition duration-300 flex items-center gap-2' onClick={() => { 
                             console.log("Hello World")
-                            setModal(true) }}>
+                           setActiveTab("devices")}}>
 
                     <FontAwesomeIcon icon={faPlus} />
 

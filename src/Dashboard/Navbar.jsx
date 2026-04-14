@@ -12,7 +12,7 @@ import Callid from './Component/Callid'
 import Devices from './DevicesPage/Devices'
 import Emergency from './EmergencyPage/Emergency'
 
-const Navbar = () => {
+const Navbar = ({user}) => {
     const [activeTab, setActiveTab] = useState("overview")
 
     return (
@@ -89,11 +89,12 @@ const Navbar = () => {
 
                 {activeTab === "overview" && <div className='flex flex-col gap-8'>
                     <Cards/>
-                    <RegisterDevice/>
+                    {console.log("Hello",user)}
+                    <RegisterDevice setActiveTab={setActiveTab}/>
                     <Callid/>
                     </div>}
                 {activeTab === "devices" && <div>
-                    <Devices/></div>}
+                    <Devices user={user}/></div>}
                 {activeTab === "emergency" && <div>
                     <Emergency/>
                     </div>}

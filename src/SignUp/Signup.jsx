@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck, faFireFlameCurved } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -34,7 +35,13 @@ const Signup = () => {
 
       if (res.status == 201) {
         console.log("Success:", res.data);
-        alert("Signup successful 🎉");
+        toast.success("Sucessfully Signed In",{
+          position:"top-right",
+          autoClose:3000,
+          hideProgressBar:false,
+          closeOnClick:true,
+          pauseOnHover:true
+        });
         setEmail("");
         setPassword("");
         setName("");
@@ -53,7 +60,14 @@ const Signup = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Signup failed ❌");
+      console.log("This is called");
+      toast.error("Some Thing Went Wrong",{
+        pauseOnHover:true,
+        position:"top-right",
+        hideProgressBar:false,
+        autoClose:3000,
+        closeOnClick:true
+      });
     }
   };
 

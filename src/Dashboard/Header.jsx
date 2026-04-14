@@ -7,7 +7,7 @@ const Header = ({ user }) => {
     const navigate = useNavigate();
     const handleLogout = async () => {
         try {
-            const data = await axios.post("http://localhost:3000/auth/logout",{
+            const data = await axios.post("http://localhost:3000/auth/logout",{},{
                 withCredentials:true
             });
             if (data.status==(201)) {

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireFlameCurved } from '@fortawesome/free-solid-svg-icons'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -27,18 +28,48 @@ const Login = () => {
           state: {
             userId: res.data.data.userId,
             name: res.data.data.name,
-            email: res.data.data.email
+            email: res.data.data.email,
+            token:res.data.data.token
           }
         });
-        alert("sucessfull Login");
-
+        toast.success("Sucessfully Signed In", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true
+        });
         setEmail("");
         setPassword("");
+      }
+      else if(res.status==404){
+        toast.error("User Doesn't Exist", {
+        pauseOnHover: true,
+        position: "top-right",
+        hideProgressBar: false,
+        autoClose: 3000,
+        closeOnClick: true
+      });
+      }
+      else if(res.status == 401){
+        toast.warning("EmailId Or Password Incorrect",{
+          pauseOnHover: true,
+        position: "top-right",
+        hideProgressBar: false,
+        autoClose: 3000,
+        closeOnClick: true
+        });
       }
     }
     catch (error) {
       console.log(error.message);
-      alert("Signup failed ❌");
+      toast.error("Some Thing Went Wrong", {
+        pauseOnHover: true,
+        position: "top-right",
+        hideProgressBar: false,
+        autoClose: 3000,
+        closeOnClick: true
+      });
 
     }
   }

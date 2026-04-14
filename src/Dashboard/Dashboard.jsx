@@ -13,13 +13,14 @@ const Dashboard = () => {
   const userData = {
     name : user.name,
     email : user.email,
-    id : user.userId
+    id : user.userId,
+    token:user.token
   }
   return (
     <div className='flex flex-col bg-[#fff4f0] w-full min-h-screen gap-5'>
       <Header user={userData}/>
       <div>
-        <Navbar />
+        <Navbar user={userData} />
       </div>
     </div>
   )
