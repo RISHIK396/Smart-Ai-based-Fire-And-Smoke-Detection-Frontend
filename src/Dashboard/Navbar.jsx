@@ -11,6 +11,8 @@ import RegisterDevice from './Component/RegisterDevice'
 import Callid from './Component/Callid'
 import Devices from './DevicesPage/Devices'
 import Emergency from './EmergencyPage/Emergency'
+import Detection from './Detections/Detection'
+import RealTimeDetectionBox from './Detections/RealTimeDetectionBox'
 
 const Navbar = ({user}) => {
     const [activeTab, setActiveTab] = useState("overview")
@@ -98,7 +100,10 @@ const Navbar = ({user}) => {
                 {activeTab === "emergency" && <div>
                     <Emergency/>
                     </div>}
-                {activeTab === "detections" && <div>🔥 Detections Content</div>}
+                {activeTab === "detections" && <div>
+                    <Detection/>
+                    <RealTimeDetectionBox/>
+                    </div>}
 
             </div>
         </div>
