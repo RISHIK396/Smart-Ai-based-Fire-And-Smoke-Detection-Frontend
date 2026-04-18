@@ -1,16 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
   faCashRegister, 
   faBell, 
   faTriangleExclamation 
 } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
+import SpaceLoader from '../../assets/SpaceLoader';
 
-const Cards = () => {
+const Cards = ({user}) => {
+const [totalDevices, setTotalDevices] = useState(0);
+const [activeDevices, setActiveDevices] = useState(0);
+const [loading,setLoading] = useState(false);
+
+useEffect(() => {
+  const fetchDeviceStats = async () => {
+    try {
+        setLoading(true);
+      const [totalRes, activeRes,res] = await Promise.all([
+        axios.get("http://localhost:3000/devices/total", {
+          params: { userId: user.id },
+          headers: { Authorization: `Bearer ${user.token}` }
+        }),
+        axios.get("http://localhost:3000/devices/active", {
+          params: { userId: user.id },
+          headers: { Authorization: `Bearer ${user.token}` }
+        }),
+    ]);
+
+      setTotalDevices(totalRes.data.data);
+      setActiveDevices(activeRes.data.data);
+      
+    } catch (err) {
+        console.error("Error fetching device stats:", err);
+    }
+    finally{
+        setLoading(false);
+    }
+  };
+
+  if (user?.token) {
+    fetchDeviceStats();
+  }
+
+}, [user]);
+
   return (
 
 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
-
+    {/* {loading &&<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+            <SpaceLoader />
+          </div>
+    } */}
     {/* 🔹 Card 1 */}
     <div className='w-full flex flex-col p-6 
                     bg-white border border-gray-200 rounded-xl 
@@ -27,7 +68,7 @@ const Cards = () => {
         </div>
 
         <div className='mt-6'>
-            <div className='text-2xl font-bold text-black'>0</div>
+            <div className='text-2xl font-bold text-black'>{totalDevices}</div>
             <div className='text-sm text-gray-500'>Registered devices</div>
         </div>
 
@@ -49,7 +90,7 @@ const Cards = () => {
         </div>
 
         <div className='mt-6'>
-            <div className='text-2xl font-bold text-black'>0</div>
+            <div className='text-2xl font-bold text-black'>{activeDevices}</div>
             <div className='text-sm text-gray-500'>Currently Monitoring</div>
         </div>
 

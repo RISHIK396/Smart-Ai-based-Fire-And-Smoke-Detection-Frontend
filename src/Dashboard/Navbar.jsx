@@ -90,9 +90,9 @@ const Navbar = ({user}) => {
             <div className="mt-6 w-full max-w-6xl mx-auto">
 
                 {activeTab === "overview" && <div className='flex flex-col gap-8'>
-                    <Cards/>
+                    <Cards user={user}/>
                     {console.log("Hello",user)}
-                    <RegisterDevice setActiveTab={setActiveTab}/>
+                    <RegisterDevice setActiveTab={setActiveTab} user={user}/>
                     <Callid/>
                     </div>}
                 {activeTab === "devices" && <div>

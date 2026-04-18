@@ -48,7 +48,7 @@ const RegisterOnDeviceBar = ({ user }) => {
 
       {/* Header */}
       <div className='flex justify-between items-center'>
-
+        <div className='flex flex-col justify-center items-center'>
         {loading ? (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <SpaceLoader />
@@ -58,7 +58,7 @@ const RegisterOnDeviceBar = ({ user }) => {
         ) : (
           <ByDefault />
         )}
-
+        </div>
         <button className="border border-gray-300 rounded-full px-4 py-1 hover:bg-gray-100 transition duration-300 text-sm text-gray-700">
           View All
         </button>
