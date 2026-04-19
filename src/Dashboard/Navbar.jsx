@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faBoxesStacked,
@@ -13,10 +13,36 @@ import Devices from './DevicesPage/Devices'
 import Emergency from './EmergencyPage/Emergency'
 import Detection from './Detections/Detection'
 import RealTimeDetectionBox from './Detections/RealTimeDetectionBox'
+import axios from 'axios'
 
-const Navbar = ({user}) => {
-    const [activeTab, setActiveTab] = useState("overview")
+const Navbar = ({ user }) => {
 
+    const [activeTab, setActiveTab] = useState("overview");
+    const [devices, setDevices] = useState([]);
+
+    // here we will write the api call for  devices
+    useEffect(() => {
+        if(devices.length>0){return}
+        const fetchDevices = async () => {
+            try {
+                const res = await axios.get("http://localhost:3000/devices", {
+                    params: { userId: user.id },
+                    headers: {
+                        Authorization: `Bearer ${user.token}`
+                    }
+                });
+
+                setDevices(res.data.data.devices);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        if (user?.token) {
+            fetchDevices(); // ✅ CALL FUNCTION
+        }
+
+    }, [user?.token]); // ✅ dependency here
     return (
         <div className='mt-25'>
             <div className='w-full max-w-3xl mx-auto 
@@ -90,24 +116,24 @@ const Navbar = ({user}) => {
             <div className="mt-6 w-full max-w-6xl mx-auto">
 
                 {activeTab === "overview" && <div className='flex flex-col gap-8'>
-                    <Cards user={user}/>
-                    {console.log("Hello",user)}
-                    <RegisterDevice setActiveTab={setActiveTab} user={user}/>
-                    <Callid/>
-                    </div>}
+                    <Cards user={user} />
+                    {console.log("Hello", user)}
+                    <RegisterDevice setActiveTab={setActiveTab} user={user} devices={devices} />
+                    <Callid />
+                </div>}
                 {activeTab === "devices" && <div>
-                    <Devices user={user}/></div>}
+                    <Devices user={user} devices={devices} setDevices={setDevices} /></div>}
                 {activeTab === "emergency" && <div>
-                    <Emergency/>
-                    </div>}
+                    <Emergency />
+                </div>}
                 {activeTab === "detections" && <div>
-                    <Detection/>
-                    <RealTimeDetectionBox/>
-                    </div>}
+                    <Detection />
+                    <RealTimeDetectionBox />
+                </div>}
 
             </div>
         </div>
-    )   
+    )
 }
 
 export default Navbar

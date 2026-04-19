@@ -4,6 +4,7 @@ import { faFireFlameCurved, faRightFromBracket } from '@fortawesome/free-solid-s
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 const Header = ({ user }) => {
+    // here we will mention that width-500 and height- any the name of the person and its email to be removed
     const navigate = useNavigate();
     const handleLogout = async () => {
         try {

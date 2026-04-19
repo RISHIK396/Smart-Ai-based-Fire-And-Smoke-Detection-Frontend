@@ -7,14 +7,21 @@ import ByDefault from './InnerBoxContent/ByDefault';
 import DevicesForId from './InnerBoxContent/DevicesForId';
 import SpaceLoader from '../../assets/SpaceLoader';
 
-const RegisterOnDeviceBar = ({ user }) => {
+const RegisterOnDeviceBar = ({ user,devices,setDevices }) => {
   const [modal, setModal] = useState(false);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchDevices = async () => {
       try {
+        console.log(devices);
+        if(devices.length>0){
+          console.log("inside if block");
+          console.log(devices);
+          // setData(devices);
+          return;
+        }
         setLoading(true);
 
         const res = await axios.get(
@@ -29,7 +36,7 @@ const RegisterOnDeviceBar = ({ user }) => {
           }
         );
 
-        setData(res.data.data.devices || []);
+        setDevices(res.data.data.devices || []);
       } catch (error) {
         console.error(error);
       } finally {
@@ -53,8 +60,8 @@ const RegisterOnDeviceBar = ({ user }) => {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
             <SpaceLoader />
           </div>
-        ) : data.length > 0 ? (
-          <DevicesForId data={data} />
+        ) : devices.length > 0 ? (
+          <DevicesForId data={devices} />
         ) : (
           <ByDefault />
         )}
@@ -83,7 +90,7 @@ const RegisterOnDeviceBar = ({ user }) => {
       </div>
 
       {/* Modal (moved outside for better layering) */}
-      {modal && <RegisterModal user={user} setModal={setModal} />}
+      {modal && <RegisterModal user={user} setModal={setModal} setDevices={setDevices}/>}
 
     </div>
   );

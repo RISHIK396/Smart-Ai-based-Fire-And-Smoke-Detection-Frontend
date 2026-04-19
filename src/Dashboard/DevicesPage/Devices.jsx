@@ -4,7 +4,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import RegisterModal from './RegisterModal'
 import RegisterOnDeviceBar from './RegisterOnDeviceBar'
 
-const Devices = ({ user }) => {
+const Devices = ({ user,devices ,setDevices}) => {
     const [modal, setModal] = useState(false);
 
     return (
@@ -38,11 +38,11 @@ const Devices = ({ user }) => {
             </div>
 
             {/* Device Bar */}
-            <RegisterOnDeviceBar user={user} />
+            <RegisterOnDeviceBar user={user} devices={devices} setDevices={setDevices} />
 
             {/* Modal (outside button for clean structure) */}
             {modal && (
-                <RegisterModal user={user} setModal={setModal} />
+                <RegisterModal user={user} setModal={setModal} setDevices={setDevices} />
             )}
 
         </div>

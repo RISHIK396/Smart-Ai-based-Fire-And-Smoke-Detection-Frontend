@@ -6,13 +6,18 @@ import axios from 'axios';
 import SpaceLoader from '../../assets/SpaceLoader';
 import DevicesForId from '../DevicesPage/InnerBoxContent/DevicesForId';
 
-const RegisterDevice = ({setActiveTab,user}) => {
+const RegisterDevice = ({setActiveTab,user,devices}) => {
     const [modal, setModal] = useState(false);
     const [data, setData] = useState([]);
     const[loading,setLoading] = useState(false);
       useEffect(() => {
     const fetchDevices = async () => {
       try {
+        if(devices.length>0){
+          console.log(devices);
+          setData(devices);
+          return;
+        }
         setLoading(true);
 
         const res = await axios.get(

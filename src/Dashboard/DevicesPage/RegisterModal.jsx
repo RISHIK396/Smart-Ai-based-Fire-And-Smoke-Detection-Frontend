@@ -4,7 +4,7 @@ import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-const RegisterModal = ({ setModal, user }) => {
+const RegisterModal = ({ setModal, user, setDevices}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // ❗ prevent reload
@@ -16,11 +16,13 @@ const RegisterModal = ({ setModal, user }) => {
             latitude,
             userId: user.id
         }
+
         const res = await axios.post("http://localhost:3000/devices", payload, {
             headers: {
                 Authorization: `Bearer ${user.token}` // 🔥 key line
             }
         });
+        const newDevice = res.data.data;
         if (res.status === 201) {
             toast.success("Sucessfully Registered Device", {
                 pauseOnHover: true,
@@ -29,6 +31,7 @@ const RegisterModal = ({ setModal, user }) => {
                 autoClose: 3000,
                 closeOnClick: true
             });
+            setDevices(prev=>[...prev,newDevice]);
             setModal(false); // close modal after submit
         }
 
