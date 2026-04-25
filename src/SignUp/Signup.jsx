@@ -10,20 +10,27 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
+
+//   document.querySelector("input").addEventListener("keydown", function(e) {
+//   if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+//     e.preventDefault();
+//   }
+// });
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log("Function is called");
-    if (password !== confirmPassword) {
-      alert("Password and Confirm password must be same");
-      return;
-    }
+    // if (password !== confirmPassword) {
+    //   alert("Password and Confirm password must be same");
+    //   return;
+    // }
 
     const payload = {
       email,
       password,
-      name
+      name,
+      phone
     };
 
     try {
@@ -45,7 +52,7 @@ const Signup = () => {
         setEmail("");
         setPassword("");
         setName("");
-        setConfirmPassword("");
+        setPhone("");
 
 
         navigate('/dashboard',
@@ -54,6 +61,7 @@ const Signup = () => {
               userId: res.data.data.userId,
               name: res.data.data.name,
               email: res.data.data.email,
+              token:res.data.data.token
             }
           }
         );
@@ -99,13 +107,17 @@ const Signup = () => {
             <input className='px-4 w-full bg-gray-200 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400'
               type='email' placeholder='you@example.com' name='email' value={email} required onChange={(e) => { setEmail(e.target.value) }} />
 
+              <label className='text-sm font-medium'>Phone</label>
+            <input className='px-4 w-full bg-gray-200 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400'
+              type='number' placeholder='98XXXXXXXX' name='phone' value={phone} required onChange={(e) => { setPhone(e.target.value) }} />
+
             <label className='text-sm font-medium'>Password</label>
             <input className='px-4 w-full bg-gray-200 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400'
               type='password' placeholder='••••••••' name='password' value={password} required onChange={(e) => { setPassword(e.target.value) }} />
 
-            <label className='text-sm font-medium'>Confirm Password</label>
+            {/* <label className='text-sm font-medium'>Confirm Password</label>
             <input className='px-4 w-full bg-gray-200 py-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400'
-              type='password' placeholder='••••••••' name='confirmPassword' value={confirmPassword} required onChange={(e) => { setConfirmPassword(e.target.value) }} />
+              type='password' placeholder='••••••••' name='confirmPassword' value={confirmPassword} required onChange={(e) => { setConfirmPassword(e.target.value) }} /> */}
 
             {/* Info box */}
             <div className='flex items-center gap-2 bg-blue-100 p-3 rounded-lg'>
