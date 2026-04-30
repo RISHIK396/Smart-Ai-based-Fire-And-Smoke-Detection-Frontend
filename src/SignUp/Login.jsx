@@ -29,7 +29,8 @@ const Login = () => {
             userId: res.data.data.userId,
             name: res.data.data.name,
             email: res.data.data.email,
-            token:res.data.data.token
+            token:res.data.data.token,
+            phone:res.data.data.phone
           }
         });
         toast.success("Sucessfully Signed In", {

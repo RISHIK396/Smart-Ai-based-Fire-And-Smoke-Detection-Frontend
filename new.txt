@@ -1,0 +1,27 @@
+{
+    "id": "4911c4f2-10ba-412d-91d0-296d8469fcca",
+    "severity": "HIGH",
+    "status": "PENDING",
+    "longitude": 22.123,
+    "latitude": 26.7123,
+    "deviceId": "019dcf22-f249-753d-bef0-ad8ace0ed468",
+    "createdAt": "2026-04-27T15:21:41.359Z",
+    "device": {
+        "name": "Parking Camera",
+        "location": "Near The Main Gate"
+    },
+    "detections": [
+        {
+            "mlConfidence": 0.9,
+            "temperature": 25,
+            "smokeLevel": 0.5,
+            "sensorTriggered": true,
+            "files": [
+                {
+                    "path": "C:\\uploads\\1777303299390-170637127.JPG",
+                    "createdAt": "2026-04-27T15:21:40.130Z"
+                }
+            ]
+        }
+    ]
+}

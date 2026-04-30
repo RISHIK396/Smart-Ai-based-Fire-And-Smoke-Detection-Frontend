@@ -19,30 +19,52 @@ const Navbar = ({ user }) => {
 
     const [activeTab, setActiveTab] = useState("overview");
     const [devices, setDevices] = useState([]);
+    const [report, setReports] = useState([]);
 
     // here we will write the api call for  devices
     useEffect(() => {
-        if(devices.length>0){return}
-        const fetchDevices = async () => {
-            try {
-                const res = await axios.get("http://localhost:3000/devices", {
-                    params: { userId: user.id },
-                    headers: {
-                        Authorization: `Bearer ${user.token}`
-                    }
-                });
+        if (!user?.token) return;
 
-                setDevices(res.data.data.devices);
+        let isMounted = true; // 🔥 prevent memory leaks
+
+        const fetchData = async () => {
+            try {
+                const headers = {
+                    Authorization: `Bearer ${user.token}`
+                };
+
+                const [devicesRes, reportRes] = await Promise.all([
+                    axios.get("http://localhost:3000/devices", {
+                        params: { userId: user.id },
+                        headers
+                    }),
+                    axios.get("http://localhost:3000/report", {
+                        params: { userId: user.id },
+                        headers
+                    })
+                ]);
+
+                if (!isMounted) return;
+
+                setDevices(devicesRes.data?.data?.devices || []);
+                // console.log(devices)
+                setReports(reportRes.data?.data || []);
+
             } catch (error) {
-                console.error(error);
+                console.error("🔥 Fetch Error:", error);
             }
         };
 
-        if (user?.token) {
-            fetchDevices(); // ✅ CALL FUNCTION
-        }
+        fetchData();
 
-    }, [user?.token]); // ✅ dependency here
+        return () => {
+            isMounted = false; // cleanup ✅
+        };
+
+    }, [user?.token]);
+    // console.log("Reports is called",report);
+
+    // ✅ dependency here
     return (
         <div className='mt-25'>
             <div className='w-full max-w-3xl mx-auto 
@@ -128,7 +150,7 @@ const Navbar = ({ user }) => {
                 </div>}
                 {activeTab === "detections" && <div>
                     <Detection />
-                    <RealTimeDetectionBox />
+                    <RealTimeDetectionBox report={report} setReports={setReports} />
                 </div>}
 
             </div>
