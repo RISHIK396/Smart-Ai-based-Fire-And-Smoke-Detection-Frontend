@@ -5,6 +5,7 @@ import RegisterModal from '../DevicesPage/RegisterModal';
 import axios from 'axios';
 import SpaceLoader from '../../assets/SpaceLoader';
 import DevicesForId from '../DevicesPage/InnerBoxContent/DevicesForId';
+import RegisterDeviceDashboard from './RegisterDeviceDashboard';
 
 const RegisterDevice = ({setActiveTab,user,devices}) => {
     const [modal, setModal] = useState(false);
@@ -74,7 +75,7 @@ const RegisterDevice = ({setActiveTab,user,devices}) => {
             <SpaceLoader />
           </div>
         ) : data.length > 0 ? (
-          <DevicesForId data={data} />
+          <RegisterDeviceDashboard data={data} />
         ) : (
             <div className='flex flex-col items-center justify-center text-center py-10'>
 

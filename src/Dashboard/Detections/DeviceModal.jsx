@@ -29,7 +29,7 @@ const DeviceModal = ({ selectedDateData, isModalOpen,setIsModalOpen, setSelected
                 <div className='flex justify-between items-center'>
 
                     <div className='flex gap-3 items-center'>
-                        <FontAwesomeIcon icon={faFolder} className='text-red-400 text-lg' />
+                        <FontAwesomeIcon icon={faFolder} className='text-yellow-400 text-2xl animate-bounce' />
 
                         <p className='text-xl font-semibold'>
                             {dateObj.toLocaleString("default", { month: "long" })}{" "}
@@ -42,12 +42,12 @@ const DeviceModal = ({ selectedDateData, isModalOpen,setIsModalOpen, setSelected
                         onClick={()=>setIsModalOpen(false)}
                         className="p-2 rounded-full hover:bg-red-100 transition"
                     >
-                        <FontAwesomeIcon icon={faXmark} className="text-gray-600 hover:text-red-500" />
+                        <FontAwesomeIcon icon={faXmark} className="text-gray-600  hover:text-red-500" />
                     </button>
 
                 </div>
 
-                <p className='text-gray-500 text-sm'>
+                <p className='text-gray-500 text-md font-bold '>
                     Select a device to view its detections
                 </p>
 
@@ -59,7 +59,7 @@ const DeviceModal = ({ selectedDateData, isModalOpen,setIsModalOpen, setSelected
                         <div
                             key={i}
                             onClick={() => setSelectedDevice(items)}
-                            className='group rounded-xl flex justify-between items-center border border-amber-100 p-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:border-orange-400 hover:bg-orange-50'
+                            className='group rounded-xl flex justify-between items-center border border-amber-300 p-3 cursor-pointer transition-all duration-200 hover:shadow-md hover:border-orange-400 hover:bg-orange-50'
                         >
 
                             {/* Left */}

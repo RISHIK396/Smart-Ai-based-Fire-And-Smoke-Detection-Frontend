@@ -26,7 +26,7 @@ const RealTimeDetectionBox = ({ report }) => {
                 mlConfidence: det.mlConfidence,
                 temperature: det.temperature,
                 smokeLevel: det.smokeLevel,
-                image: det.files?.[0]?.path,
+                image: det.files?.[0]?.url,
                 createdAt: r.createdAt
             });
         });
@@ -82,6 +82,13 @@ const RealTimeDetectionBox = ({ report }) => {
                     </div>
                 </div>
 
+                {/* ✅ WebSocket banner */}
+                <div className="w-full flex gap-2 p-3 bg-green-100 border border-green-400 rounded-2xl mb-4">
+                <FontAwesomeIcon icon={faWifi} className="text-green-500 animate-pulse font-bold text-xl" />
+                <p className="text-sm text-green-700 font-bold">
+                    WebSocket Connected - Receiving real-time detection data
+                </p>
+                </div>
                 {/* Content */}
                 {/* here we are checking the length */}
                 {Object.keys(groupedByDate).length > 0 ? (
@@ -100,9 +107,10 @@ const RealTimeDetectionBox = ({ report }) => {
                                         setSelectedDateData(items);// 🔥 use for modal
                                         setIsModalOpen(true);
                                         setSelectedDevice(null);
+                                    
                                     }}
+                                    
                                 />
-                            
                         );
                     })
                 ) : (
