@@ -1,28 +1,40 @@
-import { faTrash, faLocationDot, faTowerObservation } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faLocationDot, faTowerObservation, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useState } from 'react'
 
 const DevicesForId = ({ data = [] }) => {
+
+  const [copiedId, setCopiedId] = useState(null);
+
+  const handleCopy = async (id) => {
+    try {
+      await navigator.clipboard.writeText(id);
+      setCopiedId(id);
+
+      setTimeout(() => setCopiedId(null), 1500); // reset after 1.5s
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
+  };
+
   return (
     <div className="flex gap-5 flex-wrap">
 
       {data.map((device, index) => (
         <div
           key={device.id || index}
-          className="bg-white w-100 p-5 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col gap-4"
+          className="bg-white w-[450px] p-5 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col gap-4"
         >
 
           {/* 🔥 Top Section */}
           <div className="flex justify-between items-start">
 
             <div className="flex gap-3 items-center">
-              
-              {/* Icon */}
+
               <div className="bg-gradient-to-r from-orange-400 to-red-400 p-3 rounded-xl">
                 <FontAwesomeIcon icon={faTowerObservation} className="text-white" />
               </div>
 
-              {/* Name + Location */}
               <div>
                 <h3 className="font-semibold text-gray-800">
                   {device.name || "Device"}
@@ -36,7 +48,7 @@ const DevicesForId = ({ data = [] }) => {
 
             </div>
 
-            {/* Delete Icon */}
+            {/* Delete */}
             <button className="p-2 rounded-lg hover:bg-red-50 transition">
               <FontAwesomeIcon icon={faTrash} className="text-red-500" />
             </button>
@@ -49,6 +61,40 @@ const DevicesForId = ({ data = [] }) => {
             <span className="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600 font-medium">
               Active
             </span>
+          </div>
+
+          {/* 🔥 Device ID with Copy */}
+          <div className="flex justify-between items-center">
+            <p className="text-gray-500 text-sm">ID</p>
+
+            {/* 🔥 Tooltip Wrapper */}
+            <div className="relative group cursor-pointer">
+
+              {/* ID + Icon */}
+              <div
+                onClick={() => handleCopy(device.id)}
+                className="flex items-center gap-2 px-3 py-1 rounded-xl bg-yellow-100 hover:bg-yellow-200 transition"
+              >
+                <span className="text-xs text-gray-700">{device.id}</span>
+
+                <FontAwesomeIcon
+                  icon={faCopy}
+                  className={`text-sm ${copiedId === device.id ? "text-green-600" : "text-gray-500"
+                    }`}
+                />
+              </div>
+
+              {/* 🔥 Tooltip */}
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 
+                    opacity-0 group-hover:opacity-100 
+                    transition text-xs px-2 py-1 rounded-md 
+                    bg-black text-white whitespace-nowrap">
+
+                {copiedId === device.id ? "Copied ✅" : "Click to copy"}
+
+              </div>
+
+            </div>
           </div>
 
           {/* 🔥 Coordinates */}
@@ -77,4 +123,4 @@ const DevicesForId = ({ data = [] }) => {
   )
 }
 
-export default DevicesForId
+export default DevicesForId;

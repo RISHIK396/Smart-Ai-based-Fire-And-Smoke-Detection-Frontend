@@ -62,8 +62,20 @@ const RegisterDevice = ({setActiveTab,user,devices}) => {
                     </p>
                 </div>
 
-                <button className="border border-gray-300 rounded-full px-4 py-1 hover:bg-gray-100 transition duration-300">
-                    <span className='text-sm text-gray-700'>View All</span>
+                <button
+                  onClick={() => setActiveTab("devices")}
+                  className="group border border-gray-300 rounded-full px-4 py-1.5 
+                            bg-white text-gray-700 text-sm font-medium
+                            hover:bg-gray-100 hover:border-gray-400
+                            active:scale-95
+                            transition-all duration-200 flex items-center gap-2"
+                >
+                  <span>View All</span>
+
+                  {/* ➡️ Arrow (optional but premium feel) */}
+                  <span className="transform group-hover:translate-x-1 transition">
+                    →
+                  </span>
                 </button>
 
             </div>

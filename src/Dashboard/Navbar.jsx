@@ -15,7 +15,7 @@ import Detection from './Detections/Detection'
 import RealTimeDetectionBox from './Detections/RealTimeDetectionBox'
 import axios from 'axios'
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user,socketData }) => {
 
     const [activeTab, setActiveTab] = useState("overview");
     const [devices, setDevices] = useState([]);
@@ -64,6 +64,37 @@ const Navbar = ({ user }) => {
     }, [user?.token]);
     // console.log("Reports is called",report);
 
+    // useEffect(() => {
+    //   const fetchDeviceStats = async () => {
+    //     try {
+    //         setLoading(true);
+    //       const [totalRes, activeRes,res] = await Promise.all([
+    //         axios.get("http://localhost:3000/devices/total", {
+    //           params: { userId: user.id },
+    //           headers: { Authorization: `Bearer ${user.token}` }
+    //         }),
+    //         axios.get("http://localhost:3000/devices/active", {
+    //           params: { userId: user.id },
+    //           headers: { Authorization: `Bearer ${user.token}` }
+    //         }),
+    //     ]);
+    
+    //       setTotalDevices(totalRes.data.data);
+    //       setActiveDevices(activeRes.data.data);
+          
+    //     } catch (err) {
+    //         console.error("Error fetching device stats:", err);
+    //     }
+    //     finally{
+    //         setLoading(false);
+    //     }
+    //   };
+    
+    //   if (user?.token) {
+    //     fetchDeviceStats();
+    //   }
+    
+    // }, [user]);
     // ✅ dependency here
     return (
         <div className='mt-25'>
@@ -150,7 +181,7 @@ const Navbar = ({ user }) => {
                 </div>}
                 {activeTab === "detections" && <div>
                     <Detection />
-                    <RealTimeDetectionBox report={report} setReports={setReports} />
+                    <RealTimeDetectionBox report={report} setReports={setReports} socketData={socketData} />
                 </div>}
 
             </div>

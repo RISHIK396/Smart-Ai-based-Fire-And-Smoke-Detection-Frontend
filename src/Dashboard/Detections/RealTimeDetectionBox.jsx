@@ -1,36 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 import DefaultSection from "./DefaultSection";
 import { faWifi, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import ShowDetectionByDate from "./ShowDetectionByDate";
 import DeviceModal from "./DeviceModal";
 import DeviceDetection from "./DeviceDetection";
 
-const RealTimeDetectionBox = ({ report }) => {
+const RealTimeDetectionBox = ({ report, socketData }) => {
 
-    const [alert, setAlert] = useState([]);
     const [selectedDateData, setSelectedDateData] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDevice, setSelectedDevice] = useState(null);
 
     // 🔥 Extract detections properly
-    const processed = [];
 
-    report.forEach((r) => {
-        r.detections?.forEach((det) => {
-            processed.push({
-                deviceId: r.deviceId,
-                deviceName: r.device?.name,
-                location: r.device?.location,
-                mlConfidence: det.mlConfidence,
-                temperature: det.temperature,
-                smokeLevel: det.smokeLevel,
-                image: det.files?.[0]?.url,
-                createdAt: r.createdAt
+    const processed = useMemo(() => {
+        const data = [];
+
+        report.forEach((r) => {
+            r.detections?.forEach((det) => {
+                data.push({
+                    deviceId: r.deviceId,
+                    deviceName: r.device?.name,
+                    location: r.device?.location,
+                    mlConfidence: det.mlConfidence,
+                    temperature: det.temperature,
+                    smokeLevel: det.smokeLevel,
+                    image: det.files?.[0]?.url,
+                    createdAt: r.createdAt
+                });
             });
         });
-    });
+
+        // 🔥 ADD socket data here
+        if (socketData?.length) {
+            socketData.forEach((s) => {
+                data.unshift(s); // add latest alerts on top
+            });
+        }
+
+        return data;
+    }, [report, socketData]); // 👈 re-run when either changes
 
     const groupedByDate = processed.reduce((acc, item) => {
         const dateKey = new Date(item.createdAt).toDateString();
@@ -43,19 +54,6 @@ const RealTimeDetectionBox = ({ report }) => {
         return acc;
     }, {});
 
-    // 🔥 Socket setup
-    useEffect(() => {
-        const socket = io("http://localhost:3000");
-
-        socket.on("fireAlert", (data) => {
-            console.log("🚨 New Alert:", data);
-            setAlert((prev) => [data, ...prev]);
-        });
-
-        return () => {
-            socket.disconnect();
-        };
-    }, []);
 
     return (
         <div className="w-full h-full flex items-center justify-center mt-2 px-4">
@@ -84,10 +82,10 @@ const RealTimeDetectionBox = ({ report }) => {
 
                 {/* ✅ WebSocket banner */}
                 <div className="w-full flex gap-2 p-3 bg-green-100 border border-green-400 rounded-2xl mb-4">
-                <FontAwesomeIcon icon={faWifi} className="text-green-500 animate-pulse font-bold text-xl" />
-                <p className="text-sm text-green-700 font-bold">
-                    WebSocket Connected - Receiving real-time detection data
-                </p>
+                    <FontAwesomeIcon icon={faWifi} className="text-green-500 animate-pulse font-bold text-xl" />
+                    <p className="text-sm text-green-700 font-bold">
+                        WebSocket Connected - Receiving real-time detection data
+                    </p>
                 </div>
                 {/* Content */}
                 {/* here we are checking the length */}
@@ -97,20 +95,20 @@ const RealTimeDetectionBox = ({ report }) => {
                         const dateObj = new Date(date);
 
                         return (
-                                <ShowDetectionByDate
-                                    key={i}
-                                    month={dateObj.toLocaleString("default", { month: "long" })}
-                                    date={dateObj.getDate()}
-                                    year={dateObj.getFullYear()}
-                                    totalDetections={items.length}
-                                    onClick={() => {
-                                        setSelectedDateData(items);// 🔥 use for modal
-                                        setIsModalOpen(true);
-                                        setSelectedDevice(null);
-                                    
-                                    }}
-                                    
-                                />
+                            <ShowDetectionByDate
+                                key={i}
+                                month={dateObj.toLocaleString("default", { month: "long" })}
+                                date={dateObj.getDate()}
+                                year={dateObj.getFullYear()}
+                                totalDetections={items.length}
+                                onClick={() => {
+                                    setSelectedDateData(items);// 🔥 use for modal
+                                    setIsModalOpen(true);
+                                    setSelectedDevice(null);
+
+                                }}
+
+                            />
                         );
                     })
                 ) : (
@@ -118,13 +116,13 @@ const RealTimeDetectionBox = ({ report }) => {
                 )}
 
                 {/* Device Modal */}
-                 <DeviceModal selectedDateData={selectedDateData} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setSelectedDevice={setSelectedDevice} />
+                <DeviceModal selectedDateData={selectedDateData} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} setSelectedDevice={setSelectedDevice} />
 
-                 {
-                    selectedDevice  && <DeviceDetection data={selectedDevice}
+                {
+                    selectedDevice && <DeviceDetection data={selectedDevice}
                         onBack={() => setSelectedDevice(null)}
-                        onClose={() => setIsModalOpen(false)}/>
-                 }
+                        onClose={() => setIsModalOpen(false)} />
+                }
 
 
             </div>
