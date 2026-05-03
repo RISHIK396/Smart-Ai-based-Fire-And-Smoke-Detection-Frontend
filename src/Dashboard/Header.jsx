@@ -13,7 +13,7 @@ const Header = ({ user, setSocketData }) => {
     const navigate = useNavigate();
     const handleLogout = async () => {
         try {
-            const data = await axios.post("http://localhost:3000/auth/logout", {}, {
+            const data = await axios.post("https://fire-and-smoke-backend.onrender.com/auth/logout", {}, {
                 withCredentials: true
             });
             if (data.status == (201)) {
@@ -28,7 +28,7 @@ const Header = ({ user, setSocketData }) => {
     }
     // 🔥 Socket setup
     useEffect(() => {
-        const socket = io("http://localhost:3000");
+        const socket = io("https://fire-and-smoke-backend.onrender.com");
 
         socket.on("connect", () => {
             console.log("✅ Connected:", socket.id);

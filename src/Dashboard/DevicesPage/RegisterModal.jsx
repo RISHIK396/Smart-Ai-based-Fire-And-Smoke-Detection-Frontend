@@ -17,7 +17,7 @@ const RegisterModal = ({ setModal, user, setDevices}) => {
             userId: user.id
         }
 
-        const res = await axios.post("http://localhost:3000/devices", payload, {
+        const res = await axios.post("https://fire-and-smoke-backend.onrender.com/devices", payload, {
             headers: {
                 Authorization: `Bearer ${user.token}` // 🔥 key line
             }

@@ -34,7 +34,7 @@ const EmergencyAlert = () => {
   // ── Fetch alert ─────────────────────────────────────────────────────────────
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/alert/${token}`)
+      .get(`https://fire-and-smoke-backend.onrender.com/alert/${token}`)
       .then((res) => setAlertData(res.data.data))
       .catch((err) => {
         console.error("Error fetching alert:", err);
@@ -83,7 +83,7 @@ const EmergencyAlert = () => {
   setStatus("escalated");
   stopAlarm();
 
-  axios.post(`http://localhost:3000/alert/${token}/escalate`)
+  axios.post(`https://fire-and-smoke-backend.onrender.com/alert/${token}/escalate`)
     .catch(console.error);
 
   // 👉 redirect after short delay (so UI animation shows)
@@ -100,7 +100,7 @@ const handleIgnore = useCallback(() => {
   setStatus("ignored");
   stopAlarm();
 
-  axios.post(`http://localhost:3000/alert/${token}/ignore`)
+  axios.post(`https://fire-and-smoke-backend.onrender.com/alert/${token}/ignore`)
     .catch(console.error);
 
   setTimeout(() => {

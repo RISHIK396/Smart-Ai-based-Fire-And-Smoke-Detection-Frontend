@@ -16,7 +16,7 @@ const Login = () => {
       password
     }
     try {
-      const res = await axios.post("http://localhost:3000/auth/login",
+      const res = await axios.post("https://fire-and-smoke-backend.onrender.com/login",
         payload,
         {
           withCredentials: true

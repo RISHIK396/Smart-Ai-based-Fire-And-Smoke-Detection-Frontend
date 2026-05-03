@@ -35,7 +35,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/auth/signup",
+        "https://fire-and-smoke-backend.onrender.com/auth/signup",
         payload,
         { withCredentials: true }
       );

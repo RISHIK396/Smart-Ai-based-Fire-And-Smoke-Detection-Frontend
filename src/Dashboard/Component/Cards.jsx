@@ -18,11 +18,11 @@ useEffect(() => {
     try {
         setLoading(true);
       const [totalRes, activeRes,res] = await Promise.all([
-        axios.get("http://localhost:3000/devices/total", {
+        axios.get("https://fire-and-smoke-backend.onrender.com/devices/total", {
           params: { userId: user.id },
           headers: { Authorization: `Bearer ${user.token}` }
         }),
-        axios.get("http://localhost:3000/devices/active", {
+        axios.get("https://fire-and-smoke-backend.onrender.com/devices/active", {
           params: { userId: user.id },
           headers: { Authorization: `Bearer ${user.token}` }
         }),

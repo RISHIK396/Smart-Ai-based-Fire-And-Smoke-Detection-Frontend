@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import RegisterModal from '../DevicesPage/RegisterModal';
 import axios from 'axios';
 import ByDefault from './InnerBoxContent/ByDefault';
@@ -25,7 +24,7 @@ const RegisterOnDeviceBar = ({ user,devices,setDevices }) => {
         setLoading(true);
 
         const res = await axios.get(
-          "http://localhost:3000/devices",
+          "https://fire-and-smoke-backend.onrender.com/devices",
           {
             params: {
               userId: user.id
