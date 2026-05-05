@@ -6,7 +6,7 @@ import axios from 'axios'
 import { io } from 'socket.io-client'
 import Popup from './Popup'
 const Header = ({ user, setSocketData }) => {
-    const [alert, setAlert] = useState([]);
+    const [alert1, setAlert] = useState([]);
     const [popup, setPopup] = useState(null);
     const audioRef = useRef(null);
     // here we will mention that width-500 and height- any the name of the person and its email to be removed
@@ -17,7 +17,6 @@ const Header = ({ user, setSocketData }) => {
                 withCredentials: true
             });
             if (data.status == (201)) {
-                console.log("Logged Out");
                 alert("Done");
                 navigate('/');
             }
@@ -113,10 +112,10 @@ const Header = ({ user, setSocketData }) => {
                 <div className='flex items-center gap-4'>
 
                     <div className='flex flex-col text-right'>
-                        <h1 className='text-black text-sm font-medium'>
+                        <h1 className='text-black text-sm font-medium hidden sm:block'>
                             {user.name}
                         </h1>
-                        <p className='text-gray-400 text-xs'>
+                        <p className='text-gray-400 text-xs hidden sm:block'>
                             {user.email}
                         </p>
                     </div>
@@ -129,7 +128,7 @@ const Header = ({ user, setSocketData }) => {
                             className="text-black text-sm"
                         />
 
-                        <span className='text-sm'>Logout</span>
+                        <span className='text-sm hidden sm:block'>Logout</span>
                     </button>
 
                 </div>
