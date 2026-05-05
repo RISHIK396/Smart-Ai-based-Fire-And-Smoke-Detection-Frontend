@@ -1,11 +1,24 @@
 import { faTrash, faLocationDot, faTowerObservation, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios';
 import React, { useState } from 'react'
 
-const DevicesForId = ({ data = [] }) => {
+const DevicesForId = ({ data = [] }, setDevices) => {
 
   const [copiedId, setCopiedId] = useState(null);
 
+  const handleDelete = async (deviceId) => {
+    try {
+      // if (!window.confirm("Delete this device?")) return;
+      const data = await axios.post("https://fire-and-smoke-backend.onrender.com/devices/delete", { deviceId }, { withCredentials: true });
+      if (data.status == (201)) {
+        setDevices((prev) => prev.filter(d => d.id !== deviceId));
+      }
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
   const handleCopy = async (id) => {
     try {
       await navigator.clipboard.writeText(id);
@@ -52,7 +65,7 @@ const DevicesForId = ({ data = [] }) => {
 
             </div>
 
-            <button className="p-2 rounded-lg hover:bg-red-50 transition">
+            <button className="p-2 rounded-lg hover:bg-red-50 transition" onClick={() => { handleDelete(device.id) }}>
               <FontAwesomeIcon icon={faTrash} className="text-red-500 text-sm" />
             </button>
 
@@ -84,9 +97,8 @@ const DevicesForId = ({ data = [] }) => {
 
                 <FontAwesomeIcon
                   icon={faCopy}
-                  className={`text-xs sm:text-sm ${
-                    copiedId === device.id ? "text-green-600" : "text-gray-500"
-                  }`}
+                  className={`text-xs sm:text-sm ${copiedId === device.id ? "text-green-600" : "text-gray-500"
+                    }`}
                 />
               </div>
 

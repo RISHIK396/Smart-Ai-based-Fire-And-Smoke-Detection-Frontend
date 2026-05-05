@@ -60,7 +60,7 @@ const RegisterOnDeviceBar = ({ user,devices,setDevices }) => {
             <SpaceLoader />
           </div>
         ) : devices.length > 0 ? (
-          <DevicesForId data={devices} />
+          <DevicesForId data={devices} setDevices={setDevices} />
         ) : (
           <ByDefault />
         )}
