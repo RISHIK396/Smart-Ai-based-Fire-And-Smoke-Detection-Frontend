@@ -22,7 +22,7 @@ const RegisterDevice = ({setActiveTab,user,devices}) => {
         setLoading(true);
 
         const res = await axios.get(
-          "https://fire-and-smoke-backend.onrender.com/devices",
+          `${import.meta.env.VITE_BASE_URL}/devices`,
           {
             params: {
               userId: user.id

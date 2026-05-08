@@ -34,11 +34,11 @@ const Navbar = ({ user,socketData }) => {
                 };
 
                 const [devicesRes, reportRes] = await Promise.all([
-                    axios.get("https://fire-and-smoke-backend.onrender.com/devices", {
+                    axios.get(`${import.meta.env.VITE_BASE_URL}/devices`, {
                         params: { userId: user.id },
                         headers
                     }),
-                    axios.get("https://fire-and-smoke-backend.onrender.com/report", {
+                    axios.get(`${import.meta.env.VITE_BASE_URL}/report`, {
                         params: { userId: user.id },
                         headers
                     })

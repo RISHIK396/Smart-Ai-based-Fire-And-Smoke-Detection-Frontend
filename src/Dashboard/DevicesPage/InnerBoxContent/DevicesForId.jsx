@@ -10,7 +10,7 @@ const DevicesForId = ({ data = [] }, setDevices) => {
   const handleDelete = async (deviceId) => {
     try {
       // if (!window.confirm("Delete this device?")) return;
-      const data = await axios.post("https://fire-and-smoke-backend.onrender.com/devices/delete", { deviceId }, { withCredentials: true });
+      const data = await axios.post(`${import.meta.env.VITE_BASE_URL}/devices/delete`, { deviceId }, { withCredentials: true });
       if (data.status == (201)) {
         setDevices((prev) => prev.filter(d => d.id !== deviceId));
       }

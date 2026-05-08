@@ -16,7 +16,7 @@ const Login = () => {
       password
     }
     try {
-      const res = await axios.post("https://fire-and-smoke-backend.onrender.com/auth/login",
+      const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/login`,
         payload,
         {
           withCredentials: true

@@ -35,7 +35,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "https://fire-and-smoke-backend.onrender.com/auth/signup",
+        `${import.meta.env.VITE_BASE_URL}/auth/signup`,
         payload,
         { withCredentials: true }
       );
